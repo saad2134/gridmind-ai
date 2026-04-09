@@ -31,21 +31,32 @@ export default function Hero({
   title = "Autonomous AI Decision Engine for Smart Energy Networks",
   description = "GridMind AI predicts energy demand, optimizes grid decisions, and explains AI reasoning in real time. Empowering the future of sustainable energy management.",
   features = (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      {[
-        { icon: BarChart3, text: "Demand Forecasting", desc: "Predict next-hour energy needs" },
-        { icon: Brain, text: "AI Decision Engine", desc: "Optimize grid operations" },
-        { icon: Zap, text: "Renewable Integration", desc: "Balance solar & wind power" },
-        { icon: Battery, text: "Battery Optimization", desc: "Smart storage dispatch" },
-      ].map((feature, i) => (
-        <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-primary/10 hover:shadow-lg hover:border-primary/20 cursor-pointer">
-          <feature.icon className="w-4 h-4 text-primary mt-0.5" />
-          <div>
-            <p className="font-semibold text-xs">{feature.text}</p>
-            <p className="text-[10px] text-muted-foreground">{feature.desc}</p>
-          </div>
-        </div>
-      ))}
+    <div className="w-full max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: BarChart3, text: "Demand Forecasting", desc: "Predict next-hour energy needs with AI precision" },
+          { icon: Brain, text: "AI Decision Engine", desc: "Autonomous grid optimization in real-time" },
+          { icon: Zap, text: "Renewable Integration", desc: "Seamlessly balance solar & wind power" },
+          { icon: Battery, text: "Battery Optimization", desc: "Smart storage dispatch for efficiency" },
+        ].map((feature, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: i * 0.1 }}
+            whileHover={{ y: -6, scale: 1.03 }}
+            className="flex flex-col items-start p-5 rounded-xl bg-gradient-to-br from-primary/8 to-primary/5 border border-primary/20 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 cursor-pointer group"
+          >
+            <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+              <feature.icon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors duration-300">{feature.text}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{feature.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   ),
   buttons = [
