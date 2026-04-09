@@ -172,7 +172,7 @@ function ConsumerSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-lg font-semibold">
-              {consumerNavItems.find(item => item.url === pathname)?.title || "Consumer Dashboard"}
+              {pathname === '/consumer/profile' ? 'Profile' : pathname === '/consumer/settings' ? 'Settings' : consumerNavItems.find(item => item.url === pathname)?.title || "Consumer Dashboard"}
             </h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
               {pathname === '/consumer/dashboard' && 'Your personal energy dashboard'}
@@ -180,6 +180,8 @@ function ConsumerSidebar({ children }: { children: React.ReactNode }) {
               {pathname === '/consumer/billing' && 'Manage bills and payments'}
               {pathname === '/consumer/tips' && 'Energy saving tips'}
               {pathname === '/consumer/analytics' && 'Detailed usage analytics'}
+              {pathname === '/consumer/profile' && 'Manage your personal information'}
+              {pathname === '/consumer/settings' && 'Configure your preferences'}
             </p>
           </div>
           <div className="flex items-center gap-2">

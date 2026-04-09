@@ -172,7 +172,7 @@ function RegulatorSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-lg font-semibold">
-              {regulatorNavItems.find(item => item.url === pathname)?.title || "Regulator Dashboard"}
+              {pathname === '/regulator/profile' ? 'Profile' : pathname === '/regulator/settings' ? 'Settings' : regulatorNavItems.find(item => item.url === pathname)?.title || "Regulator Dashboard"}
             </h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
               {pathname === '/regulator/dashboard' && 'Regulatory overview and compliance metrics'}
@@ -180,6 +180,8 @@ function RegulatorSidebar({ children }: { children: React.ReactNode }) {
               {pathname === '/regulator/reliability' && 'Grid reliability and safety metrics'}
               {pathname === '/regulator/reports' && 'Generate regulatory reports'}
               {pathname === '/regulator/alerts' && 'Compliance and safety alerts'}
+              {pathname === '/regulator/profile' && 'Manage your personal information'}
+              {pathname === '/regulator/settings' && 'Configure your preferences'}
             </p>
           </div>
           <div className="flex items-center gap-2">

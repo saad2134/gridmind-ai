@@ -174,7 +174,7 @@ function ExecutiveSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-lg font-semibold">
-              {executiveNavItems.find(item => item.url === pathname)?.title || "Executive Dashboard"}
+              {pathname === '/executive/profile' ? 'Profile' : pathname === '/executive/settings' ? 'Settings' : executiveNavItems.find(item => item.url === pathname)?.title || "Executive Dashboard"}
             </h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
               {pathname === '/executive/dashboard' && 'Executive overview and strategic insights'}
@@ -182,6 +182,8 @@ function ExecutiveSidebar({ children }: { children: React.ReactNode }) {
               {pathname === '/executive/performance' && 'Grid performance and efficiency metrics'}
               {pathname === '/executive/reports' && 'Generate and view strategic reports'}
               {pathname === '/executive/analytics' && 'Advanced analytics and predictions'}
+              {pathname === '/executive/profile' && 'Manage your personal information'}
+              {pathname === '/executive/settings' && 'Configure your preferences'}
             </p>
           </div>
           <div className="flex items-center gap-2">

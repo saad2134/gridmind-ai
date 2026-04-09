@@ -172,7 +172,7 @@ function OperatorSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-lg font-semibold">
-              {operatorNavItems.find(item => item.url === pathname)?.title || "Operator Dashboard"}
+              {pathname === '/operator/profile' ? 'Profile' : pathname === '/operator/settings' ? 'Settings' : operatorNavItems.find(item => item.url === pathname)?.title || "Operator Dashboard"}
             </h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
               {pathname === '/operator/dashboard' && 'Real-time grid operations and AI decision center'}
@@ -180,6 +180,8 @@ function OperatorSidebar({ children }: { children: React.ReactNode }) {
               {pathname === '/operator/decisions' && 'AI-driven operational decisions'}
               {pathname === '/operator/battery' && 'Battery storage management'}
               {pathname === '/operator/alerts' && 'System alerts and notifications'}
+              {pathname === '/operator/profile' && 'Manage your personal information'}
+              {pathname === '/operator/settings' && 'Configure your preferences'}
             </p>
           </div>
           <div className="flex items-center gap-2">
