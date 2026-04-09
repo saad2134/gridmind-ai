@@ -105,7 +105,7 @@ export default function FooterSection({
                       href={siteConfig.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-foreground transition-all duration-300"
+                      className="text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
                     >
                       {SocialIcons.Github}
                     </Link>
@@ -126,7 +126,7 @@ export default function FooterSection({
                     >
                       <Link
                         href={link.href}
-                        className="text-muted-foreground text-sm hover:text-foreground transition-all duration-300 inline-block"
+                        className="text-muted-foreground text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 inline-block"
                       >
                         {link.text}
                       </Link>

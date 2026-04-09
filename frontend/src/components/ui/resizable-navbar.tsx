@@ -93,32 +93,34 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <motion.div
+    <div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium transition duration-200 text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-2",
+        "relative hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-1",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <Link
-          href={item.link}
-          onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
-          key={`link-${idx}`}>
-
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-lg bg-brand/20 backdrop-blur-sm"
-            />
-          )}
-          <span className="relative z-20">{item.name}</span>
-
-        </Link>
+        <div key={`link-${idx}`} className="relative">
+          <Link
+            href={item.link}
+            onMouseEnter={() => setHovered(idx)}
+            onClick={onItemClick}
+            className="relative z-10 px-4 py-2 text-neutral-600 dark:text-neutral-300 transition-colors duration-200"
+          >
+            {item.name}
+          </Link>
+          <div
+            className={cn(
+              "absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600/10 to-blue-500/10 dark:from-blue-400/10 dark:to-blue-300/10",
+              "opacity-0 transition-all duration-200 ease-out",
+              "border border-transparent",
+              hovered === idx && "opacity-100 border-blue-500/20 dark:border-blue-400/20"
+            )}
+          />
+        </div>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
@@ -241,11 +243,11 @@ export const NavbarButton = ({
 
   const variantStyles = {
     primary:
-      "bg-brand text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.25),_0_1px_1px_rgba(0,_0,_0,_0.05)]",
+      "bg-blue-600 text-white shadow-[0_0_24px_rgba(37,99,235,0.25),_0_1px_1px_rgba(0,_0,_0,_0.05)] hover:bg-blue-700",
     secondary: "bg-transparent text-brand-foreground/70 hover:text-brand-foreground",
     dark: "bg-brand/90 text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.25)]",
     gradient:
-      "bg-gradient-to-b from-brand to-brand/80 text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.35)]",
+      "bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-[0_0_24px_rgba(37,99,235,0.35)]",
   };
 
   return (

@@ -34,8 +34,8 @@ interface NavbarComponentProps {
 
 export default function NavbarComponent({
   navItems = [
-    { name: "Features", link: "#features" },
-    { name: "About", link: "#about" },
+    { name: "Features", link: "/#features" },
+    { name: "FAQ", link: "/#faq" },
   ],
   showModeToggle = true,
 }: NavbarComponentProps) {
@@ -95,7 +95,7 @@ export default function NavbarComponent({
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-muted-foreground hover:text-foreground"
+                className="relative text-muted-foreground hover:text-white transition-colors duration-200 hover:bg-blue-600/90 hover:backdrop-blur-md hover:rounded-full hover:px-4 hover:py-2"
               >
                 <span className="block">{item.name}</span>
               </a>
