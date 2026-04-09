@@ -38,7 +38,7 @@ export default function Hero({
         { icon: Zap, text: "Renewable Integration", desc: "Balance solar & wind power" },
         { icon: Battery, text: "Battery Optimization", desc: "Smart storage dispatch" },
       ].map((feature, i) => (
-        <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10">
+        <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-primary/5 border border-primary/10 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:bg-primary/10 hover:shadow-lg hover:border-primary/20 cursor-pointer">
           <feature.icon className="w-4 h-4 text-primary mt-0.5" />
           <div>
             <p className="font-semibold text-xs">{feature.text}</p>
