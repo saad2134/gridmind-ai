@@ -36,6 +36,7 @@ export default function NavbarComponent({
   navItems = [
     { name: "Features", link: "/#features" },
     { name: "FAQ", link: "/#faq" },
+    { name: "Status", link: "/status" },
   ],
   showModeToggle = true,
 }: NavbarComponentProps) {
