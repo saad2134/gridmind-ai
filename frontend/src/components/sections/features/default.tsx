@@ -24,8 +24,8 @@ function FeatureCard({ icon, title, description, className }: FeatureCardProps) 
       )}
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="relative z-10">
-        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+      <div className="relative z-10 text-center">
+        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-primary/20 transition-colors duration-300">
           <div className="text-primary">{icon}</div>
         </div>
         <h3 className="text-lg font-semibold mb-2">{title}</h3>

@@ -45,7 +45,7 @@ export default function Hero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
             whileHover={{ y: -6, scale: 1.03 }}
-            className="flex flex-col items-start p-5 rounded-xl bg-gradient-to-br from-primary/8 to-primary/5 border border-primary/20 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 cursor-pointer group"
+            className="flex flex-col items-center p-5 rounded-xl bg-gradient-to-br from-primary/8 to-primary/5 border border-primary/20 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 cursor-pointer group"
           >
             <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
               <feature.icon className="w-5 h-5 text-primary" />
