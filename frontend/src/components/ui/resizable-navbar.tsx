@@ -93,32 +93,34 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <motion.div
+    <div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium transition duration-200 text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-2",
+        "relative hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-1",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <Link
-          href={item.link}
-          onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-white transition-colors duration-200"
-          key={`link-${idx}`}>
-
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-blue-600/90 backdrop-blur-md shadow-lg"
-            />
-          )}
-          <span className="relative z-20">{item.name}</span>
-
-        </Link>
+        <div key={`link-${idx}`} className="relative">
+          <Link
+            href={item.link}
+            onMouseEnter={() => setHovered(idx)}
+            onClick={onItemClick}
+            className="relative z-10 px-4 py-2 text-neutral-600 dark:text-neutral-300 transition-colors duration-200"
+          >
+            {item.name}
+          </Link>
+          <div
+            className={cn(
+              "absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600/10 to-blue-500/10 dark:from-blue-400/10 dark:to-blue-300/10",
+              "opacity-0 transition-all duration-200 ease-out",
+              "border border-transparent",
+              hovered === idx && "opacity-100 border-blue-500/20 dark:border-blue-400/20"
+            )}
+          />
+        </div>
       ))}
-    </motion.div>
+    </div>
   );
 };
 
