@@ -18,7 +18,7 @@ export default function AboutSection({ className }: AboutSectionProps) {
   ];
 
   return (
-    <Section className={cn("bg-muted/30", className)} id="about">
+    <Section className={cn(className)} id="about">
       <div className="max-w-container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div

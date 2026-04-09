@@ -43,7 +43,7 @@ export default function NavbarComponent({
   const { setTheme } = useTheme();
 
   return (
-    <div className="relative w-full">
+    <div className="sticky top-0 z-50 w-full">
       <Navbar>
         <NavBody>
           <NavbarLogo />

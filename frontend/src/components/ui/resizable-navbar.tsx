@@ -65,9 +65,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
       animate={{
         border: "1px solid rgba(100, 100, 100, 0.2)",
         backdropFilter: "blur(10px)",
-        
         width: "80%",
-        y: 20,
       }}
       transition={{
         type: "spring",
@@ -133,7 +131,6 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         paddingRight: "12px",
         paddingLeft: "12px",
         borderRadius: "4px",
-        y: 20,
       }}
       transition={{
         type: "spring",
