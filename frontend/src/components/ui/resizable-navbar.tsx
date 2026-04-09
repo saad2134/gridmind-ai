@@ -241,11 +241,11 @@ export const NavbarButton = ({
 
   const variantStyles = {
     primary:
-      "bg-brand text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.25),_0_1px_1px_rgba(0,_0,_0,_0.05)]",
+      "bg-blue-600 text-white shadow-[0_0_24px_rgba(37,99,235,0.25),_0_1px_1px_rgba(0,_0,_0,_0.05)] hover:bg-blue-700",
     secondary: "bg-transparent text-brand-foreground/70 hover:text-brand-foreground",
     dark: "bg-brand/90 text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.25)]",
     gradient:
-      "bg-gradient-to-b from-brand to-brand/80 text-brand-foreground shadow-[0_0_24px_hsl(var(--brand)/0.35)]",
+      "bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-[0_0_24px_rgba(37,99,235,0.35)]",
   };
 
   return (
