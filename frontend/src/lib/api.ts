@@ -67,6 +67,40 @@ export interface SampleData {
     solar: number
     wind: number
   }
+  power_sources: {
+    [key: string]: PowerSource
+  }
+  grid_stats: {
+    total_demand: number
+    total_supply: number
+    renewable_percentage: number
+    grid_frequency: number
+    grid_voltage: number
+  }
+}
+
+export interface PowerSource {
+  name: string
+  capacity: number
+  current_output: number
+  unit: string
+  type: 'renewable' | 'non_renewable'
+  color: string
+}
+
+export interface PowerSourcesResponse {
+  power_sources: {
+    [key: string]: PowerSource
+  }
+  summary: {
+    total_renewable_capacity: number
+    total_non_renewable_capacity: number
+    total_capacity: number
+    current_renewable_output: number
+    current_non_renewable_output: number
+    current_total_output: number
+    renewable_percentage: number
+  }
 }
 
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
@@ -111,4 +145,7 @@ export const api = {
 
   getStatus: (): Promise<{ status: string; timestamp: string }> =>
     fetchAPI('/status'),
+
+  getPowerSources: (): Promise<PowerSourcesResponse> =>
+    fetchAPI('/data/power-sources'),
 }

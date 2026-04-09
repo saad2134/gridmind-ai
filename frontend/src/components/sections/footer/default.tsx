@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { siteConfig } from "@/config/site";
+import { CORE_CONFIG, siteConfig } from "@/config/site";
 import { useTheme } from "@/components/providers";
 
 import {
@@ -82,7 +82,14 @@ export default function FooterSection({
         )}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
             <div className="lg:col-span-2 flex flex-col gap-6">
+
               <Link href="/" className="flex items-center gap-3">
+               <img
+                  src="/favicon.svg"
+                  alt="logo"
+                  width={30}
+                  height={30}
+                />
                 <span className="text-xl font-bold">{name}</span>
               </Link>
               <p className="text-muted-foreground text-sm max-w-md">
@@ -132,7 +139,7 @@ export default function FooterSection({
         </div>
 
         <div className="flex flex-col items-center justify-center w-full pb-8 gap-3">
-            
+
           <div className="text-sm text-muted-foreground/75">
             {copyright}
           </div>

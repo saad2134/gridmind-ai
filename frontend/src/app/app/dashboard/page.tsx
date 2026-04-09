@@ -1,15 +1,24 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { api, PredictionInput, DecisionResult, ExplainResult, SampleData } from "@/lib/api"
+import { api, PredictionInput, DecisionResult, ExplainResult, SampleData, PowerSourcesResponse } from "@/lib/api"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar 
 } from "recharts"
 import { 
-  Zap, Sun, Wind, Battery, Activity, Info, RefreshCw, TrendingUp
+  Zap, Sun, Wind, Battery, Activity, Info, RefreshCw, TrendingUp, Droplets, Atom, Factory, Flame
 } from "lucide-react"
+
+const powerTypeIcons: Record<string, React.ReactNode> = {
+  solar: <Sun className="w-4 h-4" />,
+  wind: <Wind className="w-4 h-4" />,
+  hydro: <Droplets className="w-4 h-4" />,
+  nuclear: <Atom className="w-4 h-4" />,
+  coal: <Factory className="w-4 h-4" />,
+  gas: <Flame className="w-4 h-4" />,
+}
 
 const actionIcons: Record<string, React.ReactNode> = {
   battery_discharge: <Battery className="w-5 h-5" />,
@@ -37,6 +46,7 @@ export default function DashboardPage() {
   const [decision, setDecision] = useState<DecisionResult | null>(null)
   const [explanation, setExplanation] = useState<ExplainResult | null>(null)
   const [sampleData, setSampleData] = useState<SampleData | null>(null)
+  const [powerSources, setPowerSources] = useState<PowerSourcesResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [simulating, setSimulating] = useState(false)
 
@@ -47,14 +57,16 @@ export default function DashboardPage() {
   const loadData = async () => {
     setLoading(true)
     try {
-      const [decisionData, explainData, sample] = await Promise.all([
+      const [decisionData, explainData, sample, sources] = await Promise.all([
         api.getDecision(inputData),
         api.getExplain(),
         api.getSampleData(),
+        api.getPowerSources(),
       ])
       setDecision(decisionData)
       setExplanation(explainData)
       setSampleData(sample)
+      setPowerSources(sources)
     } catch (error) {
       console.error('Failed to load data:', error)
     } finally {
@@ -101,9 +113,9 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { icon: <Zap className="w-5 h-5" />, label: "Current Load", value: `${inputData.current_load} MW`, color: "text-primary" },
-          { icon: <Sun className="w-5 h-5" />, label: "Solar Output", value: `${inputData.solar_output} MW`, color: "text-primary" },
-          { icon: <Wind className="w-5 h-5" />, label: "Wind Output", value: `${sampleData?.renewable.wind || 1.8} MW`, color: "text-primary" },
+          { icon: <Zap className="w-5 h-5" />, label: "Total Demand", value: `${sampleData?.grid_stats?.total_demand || inputData.current_load} MW`, color: "text-primary" },
+          { icon: <Sun className="w-5 h-5" />, label: "Solar Output", value: `${powerSources?.power_sources.solar.current_output || inputData.solar_output} MW`, color: "text-primary" },
+          { icon: <Wind className="w-5 h-5" />, label: "Wind Output", value: `${powerSources?.power_sources.wind.current_output || 1.8} MW`, color: "text-primary" },
           { icon: <TrendingUp className="w-5 h-5" />, label: "Predicted Demand", value: `${decision?.predicted_demand || '--'} MW`, color: "text-primary" },
         ].map((stat, i) => (
           <Card key={i} className="bg-card/80 dark:bg-card/90">
@@ -112,6 +124,20 @@ export default function DashboardPage() {
               <div>
                 <p className="text-sm text-muted-foreground">{stat.label}</p>
                 <p className="text-xl font-bold">{stat.value}</p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        {powerSources && Object.entries(powerSources.power_sources).map(([key, source]) => (
+          <Card key={key} className="bg-card/80 dark:bg-card/90">
+            <CardContent className="p-3 flex items-center gap-2">
+              <div style={{ color: source.color }}>{powerTypeIcons[key]}</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-muted-foreground truncate">{source.name}</p>
+                <p className="text-sm font-bold">{source.current_output} {source.unit}</p>
               </div>
             </CardContent>
           </Card>
