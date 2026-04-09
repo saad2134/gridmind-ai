@@ -49,7 +49,7 @@ export default function NavbarComponent({
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton href="/app/dashboard" variant="primary">Go to App</NavbarButton>
+            <NavbarButton href="/auth" variant="primary">Go to App</NavbarButton>
             {showModeToggle && (
               <div className="pointer-events-auto relative z-50">
                 <DropdownMenu>
@@ -105,7 +105,7 @@ export default function NavbarComponent({
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="w-full"
-                href="/app/dashboard"
+                href="/auth"
               >
                 Go to App
               </NavbarButton>

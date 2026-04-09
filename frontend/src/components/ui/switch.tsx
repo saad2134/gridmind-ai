@@ -5,9 +5,11 @@ import * as SwitchPrimitives from "@radix-ui/react-switch"
 
 import { cn } from "@/lib/utils"
 
+interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {}
+
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
-  SwitchPrimitives.RootProps
+  SwitchProps
 >(({ className, ...props }, ref) => (
   <SwitchPrimitives.Root
     className={cn(

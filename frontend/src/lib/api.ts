@@ -103,6 +103,51 @@ export interface PowerSourcesResponse {
   }
 }
 
+export interface ExecutiveData {
+  kpis: {
+    total_demand: number
+    operational_cost: number
+    grid_efficiency: number
+    consumers_served: number
+  }
+  demand_trend: Array<{ month: string; forecast: number; actual: number }>
+  renewable_trend: Array<{ month: string; solar: number; wind: number }>
+  cost_breakdown: Array<{ category: string; amount: number; percentage: number }>
+}
+
+export interface OperatorData {
+  demand_forecast: Array<{ hour: number; demand: number }>
+  grid_status: {
+    frequency: number
+    voltage: number
+    battery_level: number
+    ai_status: string
+  }
+  recent_decisions: Array<{ action: string; timestamp: string; result: string }>
+}
+
+export interface ConsumerData {
+  current_usage: { power: number; cost: number }
+  monthly_cost: { total: number; kwh: number }
+  savings: { amount: number; percentage: number }
+  green_energy: { percentage: number; solar: number; wind: number }
+  daily_usage: Array<{ day: string; usage: number }>
+  appliance_breakdown: Array<{ appliance: string; usage: number }>
+  peak_hours: Array<{ time: string; usage: number }>
+  billing: { current_balance: number; due_date: string }
+}
+
+export interface RegulatorData {
+  compliance: { score: number; status: string }
+  reliability: { uptime: number }
+  safety: { incidents: number; score: number; days_without_incident: number; inspections_passed: number; inspections_total: number }
+  reports: { due: number }
+  compliance_trend: Array<{ month: string; score: number }>
+  reliability_metrics: Array<{ name: string; value: string; target: string; status: string }>
+  compliance_standards: Array<{ name: string; compliant: boolean }>
+  alerts: Array<{ title: string; time: string; severity: string }>
+}
+
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers: {
@@ -148,4 +193,16 @@ export const api = {
 
   getPowerSources: (): Promise<PowerSourcesResponse> =>
     fetchAPI('/data/power-sources'),
+
+  getExecutiveData: (): Promise<ExecutiveData> =>
+    fetchAPI('/data/executive'),
+
+  getOperatorData: (): Promise<OperatorData> =>
+    fetchAPI('/data/operator'),
+
+  getConsumerData: (): Promise<ConsumerData> =>
+    fetchAPI('/data/consumer'),
+
+  getRegulatorData: (): Promise<RegulatorData> =>
+    fetchAPI('/data/regulator'),
 }

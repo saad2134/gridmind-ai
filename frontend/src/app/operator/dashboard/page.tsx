@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import { api, PredictionInput, DecisionResult, ExplainResult, SampleData, PowerSourcesResponse } from "@/lib/api"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+import { api, PredictionInput, DecisionResult, ExplainResult, PowerSourcesResponse, OperatorData } from "@/lib/api";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar 
-} from "recharts"
+} from "recharts";
 import { 
-  Zap, Sun, Wind, Battery, Activity, Info, RefreshCw, TrendingUp, Droplets, Atom, Factory, Flame
-} from "lucide-react"
+  Zap, Sun, Wind, Battery, Activity, AlertTriangle, RefreshCw, TrendingUp, CheckCircle, Droplets, Atom, Factory, Flame
+} from "lucide-react";
 
 const powerTypeIcons: Record<string, React.ReactNode> = {
   solar: <Sun className="w-4 h-4" />,
@@ -18,112 +18,106 @@ const powerTypeIcons: Record<string, React.ReactNode> = {
   nuclear: <Atom className="w-4 h-4" />,
   coal: <Factory className="w-4 h-4" />,
   gas: <Flame className="w-4 h-4" />,
-}
+};
 
 const actionIcons: Record<string, React.ReactNode> = {
   battery_discharge: <Battery className="w-5 h-5" />,
   charge_storage: <Battery className="w-5 h-5" />,
   reduce_noncritical_load: <Activity className="w-5 h-5" />,
   maintain: <Zap className="w-5 h-5" />,
-}
+};
 
 const actionColors: Record<string, string> = {
   battery_discharge: "text-green-500",
   charge_storage: "text-blue-500",
   reduce_noncritical_load: "text-orange-500",
   maintain: "text-muted-foreground",
-}
+};
 
-export default function DashboardPage() {
+export default function OperatorDashboardPage() {
   const [inputData, setInputData] = useState<PredictionInput>({
     hour: new Date().getHours(),
     day_of_week: new Date().getDay(),
     temperature: 28,
     solar_output: 2.5,
     current_load: 10,
-  })
-  
-  const [decision, setDecision] = useState<DecisionResult | null>(null)
-  const [explanation, setExplanation] = useState<ExplainResult | null>(null)
-  const [sampleData, setSampleData] = useState<SampleData | null>(null)
-  const [powerSources, setPowerSources] = useState<PowerSourcesResponse | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [simulating, setSimulating] = useState(false)
+  });
+
+  const [decision, setDecision] = useState<DecisionResult | null>(null);
+  const [explanation, setExplanation] = useState<ExplainResult | null>(null);
+  const [powerSources, setPowerSources] = useState<PowerSourcesResponse | null>(null);
+  const [operatorData, setOperatorData] = useState<OperatorData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [simulating, setSimulating] = useState(false);
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   const loadData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const [decisionData, explainData, sample, sources] = await Promise.all([
+      const [decisionData, explainData, sources, opData] = await Promise.all([
         api.getDecision(inputData),
         api.getExplain(),
-        api.getSampleData(),
         api.getPowerSources(),
-      ])
-      setDecision(decisionData)
-      setExplanation(explainData)
-      setSampleData(sample)
-      setPowerSources(sources)
+        api.getOperatorData(),
+      ]);
+      setDecision(decisionData);
+      setExplanation(explainData);
+      setPowerSources(sources);
+      setOperatorData(opData);
     } catch (error) {
-      console.error('Failed to load data:', error)
+      console.error('Failed to load data:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSimulate = async () => {
-    setSimulating(true)
+    setSimulating(true);
     try {
-      const result = await api.getDecision(inputData)
-      setDecision(result)
+      const result = await api.getDecision(inputData);
+      setDecision(result);
     } catch (error) {
-      console.error('Simulation failed:', error)
+      console.error('Simulation failed:', error);
     } finally {
-      setSimulating(false)
+      setSimulating(false);
     }
-  }
+  };
 
   const handleInputChange = (field: keyof PredictionInput, value: number) => {
-    setInputData(prev => ({ ...prev, [field]: value }))
-  }
+    setInputData(prev => ({ ...prev, [field]: value }));
+  };
 
   const formatAction = (action: string) => {
-    return action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-  }
+    return action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  };
 
   const featureData = explanation ? Object.entries(explanation.feature_importance).map(([name, value]) => ({
     name: name.replace('_', ' '),
     value: value,
-  })) : []
+  })) : [];
+
+  const statusIndicators = [
+    { label: "Grid Frequency", value: "60.0 Hz", status: "normal", icon: <Activity className="w-4 h-4" /> },
+    { label: "Grid Voltage", value: "230 V", status: "normal", icon: <Zap className="w-4 h-4" /> },
+    { label: "Battery Status", value: "85%", status: "normal", icon: <Battery className="w-4 h-4" /> },
+    { label: "AI System", value: "Online", status: "normal", icon: <CheckCircle className="w-4 h-4" /> },
+  ];
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-end">
-        <Button 
-          onClick={loadData} 
-          variant="outline"
-        >
-          <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
-        </Button>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {[
-          { icon: <Zap className="w-5 h-5" />, label: "Total Demand", value: `${sampleData?.grid_stats?.total_demand || inputData.current_load} MW`, color: "text-primary" },
-          { icon: <Sun className="w-5 h-5" />, label: "Solar Output", value: `${powerSources?.power_sources.solar.current_output || inputData.solar_output} MW`, color: "text-primary" },
-          { icon: <Wind className="w-5 h-5" />, label: "Wind Output", value: `${powerSources?.power_sources.wind.current_output || 1.8} MW`, color: "text-primary" },
-          { icon: <TrendingUp className="w-5 h-5" />, label: "Predicted Demand", value: `${decision?.predicted_demand || '--'} MW`, color: "text-primary" },
-        ].map((stat, i) => (
-          <Card key={i} className="bg-card/80 dark:bg-card/90">
+        {statusIndicators.map((status, i) => (
+          <Card key={i} className={`bg-card/80 dark:bg-card/90 ${status.status === 'normal' ? 'border-l-4 border-l-green-500' : 'border-l-4 border-l-red-500'}`}>
             <CardContent className="p-4 flex items-center gap-4">
-              <div className={`p-2 rounded-lg bg-muted ${stat.color}`}>{stat.icon}</div>
+              <div className={`p-2 rounded-lg ${status.status === 'normal' ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                {status.icon}
+              </div>
               <div>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-                <p className="text-xl font-bold">{stat.value}</p>
+                <p className="text-sm text-muted-foreground">{status.label}</p>
+                <p className="text-xl font-bold">{status.value}</p>
               </div>
             </CardContent>
           </Card>
@@ -151,9 +145,9 @@ export default function DashboardPage() {
             <CardDescription>Next 5 hours prediction</CardDescription>
           </CardHeader>
           <CardContent>
-            {sampleData ? (
+            {operatorData ? (
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={sampleData.predictions}>
+                <LineChart data={operatorData.demand_forecast}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="hour" />
                   <YAxis />
@@ -164,7 +158,7 @@ export default function DashboardPage() {
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-[300px] flex items-center justify-center text-muted-foreground">Loading chart...</div>
+              <div className="h-[300px] flex items-center justify-center text-muted-foreground">Loading...</div>
             )}
           </CardContent>
         </Card>
@@ -202,7 +196,7 @@ export default function DashboardPage() {
         <Card className="bg-card/80 dark:bg-card/90">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Info className="w-5 h-5 text-blue-500" />
+              <Activity className="w-5 h-5 text-blue-500" />
               AI Explanation
             </CardTitle>
             <CardDescription>Feature importance breakdown</CardDescription>
@@ -264,5 +258,5 @@ export default function DashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
