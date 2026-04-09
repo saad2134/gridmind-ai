@@ -96,26 +96,25 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "relative hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-1",
+        "relative hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-brand-foreground/70 hover:text-brand-foreground lg:flex lg:space-x-1 ",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <div key={`link-${idx}`} className="relative">
+        <div key={`link-${idx}`} className="relative p-2">
           <Link
             href={item.link}
             onMouseEnter={() => setHovered(idx)}
             onClick={onItemClick}
-            className="relative z-10 px-4 py-2 text-neutral-600 dark:text-neutral-300 transition-colors duration-200"
+            className="relative z-10 px-4 py-2 text-neutral-600 dark:text-neutral-300 hover:text-white dark:hover:text-white transition-all duration-300 ease-out"
           >
             {item.name}
           </Link>
           <div
             className={cn(
-              "absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600/10 to-blue-500/10 dark:from-blue-400/10 dark:to-blue-300/10",
-              "opacity-0 transition-all duration-200 ease-out",
-              "border border-transparent",
-              hovered === idx && "opacity-100 border-blue-500/20 dark:border-blue-400/20"
+              "absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 dark:from-blue-500 dark:to-blue-400 shadow-lg shadow-blue-500/30",
+              "opacity-0 scale-90 transition-all duration-300 ease-out",
+              hovered === idx && "opacity-100 scale-100"
             )}
           />
         </div>
