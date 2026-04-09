@@ -18,6 +18,7 @@ import {
   Target,
   TrendingUp,
   ArrowLeft,
+  User,
 } from "lucide-react";
 import {
   Sidebar,
@@ -64,18 +65,16 @@ const appNavItems = [
     title: "Energy Monitor",
     url: "/app/monitor",
     icon: Zap,
-    items: [
-      {
-        title: "Demand Forecast",
-        url: "/app/demand",
-        icon: TrendingUp,
-      },
-      {
-        title: "Renewable Sources",
-        url: "/app/renewable",
-        icon: Battery,
-      },
-    ],
+  },
+  {
+    title: "Demand Forecast",
+    url: "/app/demand",
+    icon: TrendingUp,
+  },
+  {
+    title: "Renewable Sources",
+    url: "/app/renewable",
+    icon: Battery,
   },
   {
     title: "AI Decisions",
@@ -169,7 +168,7 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
                 }`}
               >
                 <div className="w-9 h-9 rounded-full bg-primary/50 dark:bg-primary/50 flex items-center justify-center font-semibold text-sm shrink-0">
-                  AI
+                  GA
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">Grid Admin</p>
@@ -214,6 +213,8 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
               {pathname === '/app/demand' && 'Forecast energy demand'}
               {pathname === '/app/renewable' && 'Track renewable energy sources'}
               {pathname === '/app/decisions' && 'View AI-driven decisions'}
+              {pathname === '/app/profile' && 'Manage your profile'}
+              {pathname === '/app/settings' && 'Configure system settings'}
             </p>
           </div>
           <div className="flex items-center gap-2">

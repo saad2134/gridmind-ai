@@ -117,6 +117,43 @@ def get_sample_data():
         "renewable": {
             "solar": 2.4,
             "wind": 1.8
+        },
+        "power_sources": {
+            "solar": {"name": "Solar", "capacity": 5.0, "current_output": 2.4, "unit": "MW", "type": "renewable", "color": "#F59E0B"},
+            "wind": {"name": "Wind", "capacity": 4.0, "current_output": 1.8, "unit": "MW", "type": "renewable", "color": "#3B82F6"},
+            "hydro": {"name": "Hydro", "capacity": 8.0, "current_output": 5.2, "unit": "MW", "type": "renewable", "color": "#06B6D4"},
+            "nuclear": {"name": "Nuclear", "capacity": 12.0, "current_output": 10.5, "unit": "MW", "type": "non_renewable", "color": "#8B5CF6"},
+            "coal": {"name": "Coal", "capacity": 6.0, "current_output": 3.8, "unit": "MW", "type": "non_renewable", "color": "#374151"},
+            "gas": {"name": "Natural Gas", "capacity": 4.0, "current_output": 2.1, "unit": "MW", "type": "non_renewable", "color": "#EF4444"}
+        },
+        "grid_stats": {
+            "total_demand": 25.8,
+            "total_supply": 26.0,
+            "renewable_percentage": 36.5,
+            "grid_frequency": 60.0,
+            "grid_voltage": 230.0
+        }
+    }
+
+@app.get("/data/power-sources")
+def get_power_sources():
+    return {
+        "power_sources": {
+            "solar": {"name": "Solar", "capacity": 5.0, "current_output": 2.4, "unit": "MW", "type": "renewable", "color": "#F59E0B"},
+            "wind": {"name": "Wind", "capacity": 4.0, "current_output": 1.8, "unit": "MW", "type": "renewable", "color": "#3B82F6"},
+            "hydro": {"name": "Hydro", "capacity": 8.0, "current_output": 5.2, "unit": "MW", "type": "renewable", "color": "#06B6D4"},
+            "nuclear": {"name": "Nuclear", "capacity": 12.0, "current_output": 10.5, "unit": "MW", "type": "non_renewable", "color": "#8B5CF6"},
+            "coal": {"name": "Coal", "capacity": 6.0, "current_output": 3.8, "unit": "MW", "type": "non_renewable", "color": "#374151"},
+            "gas": {"name": "Natural Gas", "capacity": 4.0, "current_output": 2.1, "unit": "MW", "type": "non_renewable", "color": "#EF4444"}
+        },
+        "summary": {
+            "total_renewable_capacity": 17.0,
+            "total_non_renewable_capacity": 22.0,
+            "total_capacity": 39.0,
+            "current_renewable_output": 9.4,
+            "current_non_renewable_output": 16.4,
+            "current_total_output": 25.8,
+            "renewable_percentage": 36.5
         }
     }
 
