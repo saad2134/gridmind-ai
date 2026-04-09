@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 import { Providers } from "@/components/providers";
+import Navbar from "@/components/sections/navbar/default";
+import FooterSection from "@/components/sections/footer/default";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,18 +23,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} min-h-full flex flex-col font-sans`}>
-        <Providers>
-          {children}
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <FooterSection />
+    </Providers>
   );
 }
