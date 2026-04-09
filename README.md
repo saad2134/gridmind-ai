@@ -192,6 +192,10 @@ graph TB
         Models[(Trained Models)]
     end
 
+    subgraph IoT["Demo Data Streaming ⚠️"]
+        Sim[Simulation Script]
+    end
+
     Landing --> Auth
     Auth --> Exec
     Auth --> Oper
@@ -211,6 +215,8 @@ graph TB
     RF --> Models
     Scaler --> Models
     CSV -->|Training| RF
+    
+    Sim -.->|Streamed Demo Data| API
 ```
 
 ---
