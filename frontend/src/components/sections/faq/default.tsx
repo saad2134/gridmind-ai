@@ -19,11 +19,16 @@ function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="border-b border-border last:border-0"
+      className={cn(
+        "border-b transition-all duration-300",
+        isOpen 
+          ? "border-blue-300 dark:border-blue-700" 
+          : "border-blue-200/50 dark:border-blue-900/50"
+      )}
     >
       <button
         onClick={onToggle}
-        className="flex items-center justify-between w-full py-5 text-left hover:text-primary transition-colors"
+        className="flex items-center justify-between w-full py-5 text-left hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
       >
         <span className="font-medium pr-4">{question}</span>
         <ChevronDown
@@ -109,7 +114,7 @@ export default function FAQSection({ className }: FAQSectionProps) {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="bg-muted/30 rounded-2xl p-6 md:p-8">
+          <div className="bg-muted/30 rounded-2xl p-6 md:p-8 border border-blue-200/50 dark:border-blue-800/30 shadow-sm shadow-blue-500/5">
             {faqs.map((faq, index) => (
               <FAQItem
                 key={index}
