@@ -42,14 +42,14 @@ export default function ConsumerDashboardPage() {
     { 
       icon: <PiggyBank className="w-5 h-5" />, 
       label: "This Month", 
-      value: `$${consumerData?.monthly_cost.total || 0}`, 
+      value: `₹${consumerData?.monthly_cost.total || 0}`, 
       subtext: `${consumerData?.monthly_cost.kwh || 0} kWh used`,
       color: "text-green-500" 
     },
     { 
       icon: <TrendingDown className="w-5 h-5" />, 
       label: "Savings", 
-      value: `$${consumerData?.savings.amount || 0}`, 
+      value: `₹${consumerData?.savings.amount || 0}`, 
       subtext: `${consumerData?.savings.percentage || 0}% vs average`,
       color: "text-blue-500" 
     },
@@ -199,7 +199,7 @@ export default function ConsumerDashboardPage() {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Current Balance</span>
-                  <span className="font-bold">${consumerData.billing.current_balance}</span>
+                  <span className="font-bold">₹{consumerData.billing.current_balance}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Due Date</span>

@@ -35,7 +35,7 @@ export default function FinancialPage() {
     { 
       icon: <Wallet className="w-5 h-5" />, 
       label: "Revenue (YTD)", 
-      value: "$4.2M", 
+      value: "₹4.2M", 
       change: "+8.2%", 
       trend: "up",
       color: "text-green-500" 
@@ -43,7 +43,7 @@ export default function FinancialPage() {
     { 
       icon: <PiggyBank className="w-5 h-5" />, 
       label: "Net Profit", 
-      value: "$1.8M", 
+      value: "₹1.8M", 
       change: "+12.4%", 
       trend: "up",
       color: "text-green-500" 
@@ -51,7 +51,7 @@ export default function FinancialPage() {
     { 
       icon: <CreditCard className="w-5 h-5" />, 
       label: "Operating Expenses", 
-      value: "$2.4M", 
+      value: "₹2.4M", 
       change: "-5.1%", 
       trend: "down",
       color: "text-green-500" 
@@ -148,10 +148,10 @@ export default function FinancialPage() {
         <CardContent>
           <div className="space-y-4">
             {[
-              { project: "Solar Expansion", investment: "$2.5M", roi: "+24%", status: "excellent" },
-              { project: "Grid Modernization", investment: "$1.8M", roi: "+18%", status: "good" },
-              { project: "Battery Storage", investment: "$1.2M", roi: "+15%", status: "good" },
-              { project: "Smart Meter Rollout", investment: "$800K", roi: "+12%", status: "moderate" },
+              { project: "Solar Expansion", investment: "₹2.5M", roi: "+24%", status: "excellent" },
+              { project: "Grid Modernization", investment: "₹1.8M", roi: "+18%", status: "good" },
+              { project: "Battery Storage", investment: "₹1.2M", roi: "+15%", status: "good" },
+              { project: "Smart Meter Rollout", investment: "₹800K", roi: "+12%", status: "moderate" },
             ].map((item, i) => (
               <div key={i} className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
                 <div>
