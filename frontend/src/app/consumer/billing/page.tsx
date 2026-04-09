@@ -52,7 +52,7 @@ export default function BillingPage() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Current Balance</p>
-              <p className="text-xl font-bold">${consumerData?.billing.current_balance || 0}</p>
+              <p className="text-xl font-bold">₹{consumerData?.billing.current_balance || 0}</p>
             </div>
           </CardContent>
         </Card>
@@ -74,7 +74,7 @@ export default function BillingPage() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Savings</p>
-              <p className="text-xl font-bold">${consumerData?.savings.amount || 0}</p>
+              <p className="text-xl font-bold">₹{consumerData?.savings.amount || 0}</p>
             </div>
           </CardContent>
         </Card>
@@ -94,7 +94,7 @@ export default function BillingPage() {
           </CardHeader>
           <CardContent>
             <div className="p-6 rounded-lg bg-muted/50 text-center">
-              <p className="text-4xl font-bold mb-2">${consumerData?.billing.current_balance || 0}</p>
+              <p className="text-4xl font-bold mb-2">₹{consumerData?.billing.current_balance || 0}</p>
               <p className="text-muted-foreground mb-4">Due on {consumerData?.billing.due_date}</p>
               <div className="flex gap-2 justify-center">
                 <Button variant="outline" size="sm">
@@ -147,7 +147,7 @@ export default function BillingPage() {
                   <FileText className="w-5 h-5 text-muted-foreground" />
                   <div>
                     <p className="font-medium">{bill.month}</p>
-                    <p className="text-sm text-muted-foreground">${bill.amount}.00</p>
+                    <p className="text-sm text-muted-foreground">₹{bill.amount}.00</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

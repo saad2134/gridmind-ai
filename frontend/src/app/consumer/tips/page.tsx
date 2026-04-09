@@ -65,9 +65,9 @@ const tips = [
 ];
 
 const challenges = [
-  { name: "7-Day Saver", description: "Use under 100 kWh for a week", progress: 65, reward: "$10 credit" },
-  { name: "Peak Avoider", description: "Avoid peak hour usage for a month", progress: 40, reward: "$15 credit" },
-  { name: "Green Champion", description: "Use 50%+ renewable energy", progress: 85, reward: "$20 credit" },
+  { name: "7-Day Saver", description: "Use under 100 kWh for a week", progress: 65, reward: "₹10 credit" },
+  { name: "Peak Avoider", description: "Avoid peak hour usage for a month", progress: 40, reward: "₹15 credit" },
+  { name: "Green Champion", description: "Use 50%+ renewable energy", progress: 85, reward: "₹20 credit" },
 ];
 
 export default function TipsPage() {
@@ -136,11 +136,11 @@ export default function TipsPage() {
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
-              { tip: "LED Bulbs", saving: "$100/year" },
-              { tip: "Smart Thermostat", saving: "$150/year" },
-              { tip: "Unplug Devices", saving: "$50/year" },
-              { tip: "Off-Peak Usage", saving: "$75/year" },
-              { tip: "Full Loads", saving: "$25/year" },
+              { tip: "LED Bulbs", saving: "₹100/year" },
+              { tip: "Smart Thermostat", saving: "₹150/year" },
+              { tip: "Unplug Devices", saving: "₹50/year" },
+              { tip: "Off-Peak Usage", saving: "₹75/year" },
+              { tip: "Full Loads", saving: "₹25/year" },
             ].map((item, i) => (
               <div key={i} className="p-4 rounded-lg bg-muted/50 text-center">
                 <p className="font-medium mb-1">{item.tip}</p>

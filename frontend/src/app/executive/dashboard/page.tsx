@@ -56,7 +56,7 @@ export default function ExecutiveDashboardPage() {
     { 
       icon: <DollarSign className="w-5 h-5" />, 
       label: "Operational Cost", 
-      value: `$${executiveData?.kpis.operational_cost || 0}K`, 
+      value: `₹${executiveData?.kpis.operational_cost || 0}K`, 
       change: "-12.4%", 
       trend: "down",
       color: "text-green-500" 
@@ -198,7 +198,7 @@ export default function ExecutiveDashboardPage() {
                       <span className="text-sm">{item.category}</span>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">${item.amount}K</p>
+                      <p className="font-medium">₹{item.amount}K</p>
                       <p className="text-xs text-muted-foreground">{item.percentage}%</p>
                     </div>
                   </div>
