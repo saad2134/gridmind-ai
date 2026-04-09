@@ -63,8 +63,8 @@ export default function FooterSection({
     {
       title: "Legal",
       links: [
-        { text: "Privacy Policy", href: "/privacy" },
-        { text: "Terms of Service", href: "#" },
+        { text: "Privacy Policy", href: "#" },
+        { text: "Terms of Service", href: "/terms" },
         { text: "Cookie Policy", href: "#" },
       ],
     },
@@ -84,7 +84,7 @@ export default function FooterSection({
             <div className="lg:col-span-2 flex flex-col gap-6">
 
               <Link href="/" className="flex items-center gap-3">
-               <img
+                <img
                   src="/favicon.svg"
                   alt="logo"
                   width={30}
