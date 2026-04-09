@@ -67,12 +67,12 @@ export default function Hero({
   return (
     <Section
       className={cn(
-        "fade-bottom overflow-hidden pb-0 sm:pb-0 md:pb-0 relative pt-16 sm:pt-20",
+        "overflow-hidden relative py-12 md:py-14 bg-background",
         className,
       )}
     >
       {/* Background orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 bg-black">
         <motion.div
           className="absolute top-10 left-10 w-[150px] h-[150px] rounded-full bg-primary/20 blur-[60px]"
           animate={{
