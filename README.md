@@ -21,14 +21,16 @@ GridMind AI combines predictive AI, reinforcement learning, and explainable AI t
 * 🧠 **AI Decision Engine** – Recommends optimal grid actions (battery discharge/charge, load reduction, grid import)
 * 📊 **Explainable AI** – Feature importance visualization showing what influences predictions (Temperature, Hour, Solar, Load)
 * 🎮 **Scenario Simulator** – Interactive controls to simulate different conditions (temperature, solar output, load, time)
+* 👥 **Multi-Role Access** – Role-based dashboards for Executive, Operator, Consumer, and Regulator
 
-## 🎯 Use Cases
+## 🎯 Use Cases & Roles
 
-* 🔌 **Grid Operators** – Real-time decision support for energy distribution
-* ⚡ **Energy Utilities** – Optimize renewable energy integration and battery storage
-* 🏙️ **Smart Cities** – Manage urban energy demand and supply balancing
-* 🏭 **Industrial Grids** – Optimize power consumption and reduce costs
-* 🌱 **Renewable Energy Farms** – Predict output and manage storage dispatch
+| Role | Description |
+|------|-------------|
+| ⚡ **Energy Executive** | Executive-level analytics, strategic insights, and high-level grid performance metrics |
+| 🎛️ **Grid Operator** | Real-time grid monitoring, AI decisions, and operational control center |
+| 🏠 **Consumer** | Personal energy usage tracking, consumption analytics, and billing management |
+| 📋 **Regulator** | Compliance monitoring, grid reliability metrics, and regulatory reporting |
 
 ---
 
@@ -63,6 +65,7 @@ GridMind AI combines predictive AI, reinforcement learning, and explainable AI t
 * TypeScript
 * Recharts (Data Visualization)
 * shadcn/ui Components
+* Framer Motion (Animations)
 
 ### Backend
 
@@ -89,17 +92,15 @@ cd smart-energy-grids
 ### 2️⃣ Backend Setup
 
 ```bash
-cd backend
+cd backend/app
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Train the ML model
-cd app
 python train_model.py
 
 # Run the server
-cd app
 python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
@@ -126,6 +127,7 @@ smart-energy-grids/
 │
 ├── backend/                 # FastAPI backend
 │   ├── app/                # Application modules
+│   │   ├── __init__.py
 │   │   ├── main.py         # FastAPI server entry point
 │   │   ├── predict.py      # ML prediction model
 │   │   ├── decision_engine.py  # AI decision logic
@@ -141,7 +143,13 @@ smart-energy-grids/
 ├── frontend/               # Next.js frontend
 │   ├── src/
 │   │   ├── app/           # App router pages
-│   │   │   └── page.tsx   # Main dashboard
+│   │   │   ├── (public)/ # Landing page
+│   │   │   ├── auth/      # Role selection
+│   │   │   ├── app/       # Original dashboard
+│   │   │   ├── executive/ # Energy Executive dashboard
+│   │   │   ├── operator/  # Grid Operator dashboard
+│   │   │   ├── consumer/  # Consumer dashboard
+│   │   │   └── regulator/ # Regulator dashboard
 │   │   ├── components/   # UI components
 │   │   │   └── ui/        # shadcn components
 │   │   └── lib/           # Utilities & API client
@@ -149,6 +157,7 @@ smart-energy-grids/
 │   │       └── utils.ts
 │   └── package.json
 │
+├── CONTEXT.txt            # Project requirements & design
 └── README.md
 ```
 
@@ -159,7 +168,12 @@ smart-energy-grids/
 ```mermaid
 graph TB
     subgraph Client["Frontend (Web)"]
-        UI[Next.js Dashboard]
+        Landing[Landing Page]
+        Auth[Role Selection]
+        Exec[Executive Dashboard]
+        Oper[Operator Dashboard]
+        Cons[Consumer Dashboard]
+        Regul[Regulator Dashboard]
     end
 
     subgraph Backend["Backend (FastAPI)"]
@@ -178,7 +192,17 @@ graph TB
         Models[(Trained Models)]
     end
 
-    UI -->|HTTP| API
+    Landing --> Auth
+    Auth --> Exec
+    Auth --> Oper
+    Auth --> Cons
+    Auth --> Regul
+
+    Exec -->|HTTP| API
+    Oper -->|HTTP| API
+    Cons -->|HTTP| API
+    Regul -->|HTTP| API
+
     API --> Pred
     API --> Decision
     Pred --> RF
@@ -193,13 +217,48 @@ graph TB
 
 ## 📱 Dashboard Features
 
+### Energy Executive Dashboard (`/executive/dashboard`)
 | Panel | Description |
 |-------|-------------|
-| **Energy Stats** | Current load, solar output, wind output, predicted demand |
+| **KPI Cards** | Total demand, operational cost, grid efficiency, consumers served |
+| **Demand Trend** | Area chart showing forecast vs actual monthly demand |
+| **Power Source Mix** | Pie chart of current generation by source |
+| **Renewable Integration** | Line chart of solar/wind performance over time |
+| **Cost Breakdown** | Bar chart of operational cost categories |
+
+### Grid Operator Dashboard (`/operator/dashboard`)
+| Panel | Description |
+|-------|-------------|
+| **Status Indicators** | Grid frequency, voltage, battery status, AI system status |
+| **Power Sources** | Real-time output from solar, wind, hydro, nuclear, coal, gas |
 | **Demand Forecast** | Line chart showing next 5 hours prediction |
 | **AI Decision** | Recommended action with amount and reasoning |
-| **Explainability** | Bar chart showing feature importance percentages |
+| **AI Explanation** | Bar chart showing feature importance |
 | **Scenario Simulator** | Interactive sliders for temperature, solar, load, hour |
+
+### Consumer Dashboard (`/consumer/dashboard`)
+| Panel | Description |
+|-------|-------------|
+| **Current Usage** | Real-time power consumption and cost per hour |
+| **Monthly Cost** | Total cost and kWh used this month |
+| **Savings** | Amount saved vs average |
+| **Green Energy** | Percentage of renewable sources used |
+| **Daily Usage** | Line chart of weekly consumption pattern |
+| **Appliance Breakdown** | Bar chart of energy usage by category |
+| **Peak Hours** | List of highest usage time periods |
+| **Billing** | Current balance and due date |
+
+### Regulator Dashboard (`/regulator/dashboard`)
+| Panel | Description |
+|-------|-------------|
+| **Compliance Score** | Overall compliance percentage |
+| **Grid Uptime** | Reliability percentage |
+| **Safety Incidents** | Number of incidents this quarter |
+| **Reports Due** | Number of pending reports |
+| **Compliance Trend** | Line chart of monthly compliance scores |
+| **Reliability Metrics** | SAIDI, SAIFI, CAIDI, ASAI metrics |
+| **Compliance Standards** | Status of safety, environmental, grid reliability standards |
+| **Alerts** | Recent compliance and safety notifications |
 
 ---
 
@@ -212,6 +271,11 @@ graph TB
 | `/explain` | GET | Get feature importance |
 | `/simulate` | POST | Run scenario simulation |
 | `/data/sample` | GET | Get sample energy data |
+| `/data/power-sources` | GET | Get power source data |
+| `/data/executive` | GET | Get executive dashboard data |
+| `/data/operator` | GET | Get operator dashboard data |
+| `/data/consumer` | GET | Get consumer dashboard data |
+| `/data/regulator` | GET | Get regulator dashboard data |
 | `/status` | GET | API status |
 
 ---

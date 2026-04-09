@@ -50,8 +50,8 @@ export default function Hero({
   ),
   buttons = [
     {
-      href: '/app/dashboard',
-      text: "Go to App",
+      href: '/auth',
+      text: "Get Started",
       variant: "default",
       icon: <ArrowRightIcon className="mr-2 size-4" />,
     },

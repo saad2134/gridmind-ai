@@ -47,7 +47,7 @@ export default function FooterSection({
     {
       title: "Product",
       links: [
-        { text: "Dashboard", href: "/app/dashboard" },
+        { text: "Dashboard", href: "/auth" },
         { text: "Features", href: "#features" },
         { text: "Documentation", href: "#" },
       ],

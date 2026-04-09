@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import * as React from "react";
 import Link from "next/link";
@@ -9,16 +9,16 @@ import AppIcon from "@/components/logos/app_icon";
 import {
   LayoutDashboard,
   Zap,
-  BarChart3,
+  Activity,
   Battery,
+  Target,
   Settings,
   Bell,
   Sun,
   Moon,
-  Target,
-  TrendingUp,
   ArrowLeft,
-  User,
+  AlertTriangle,
+  RefreshCw,
 } from "lucide-react";
 import {
   Sidebar,
@@ -26,7 +26,6 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarGroup,
   SidebarGroupLabel,
@@ -48,50 +47,44 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { siteConfig } from "@/config/site";
 
-const appNavItems = [
+const operatorNavItems = [
   {
     title: "Dashboard",
-    url: "/app/dashboard",
+    url: "/operator/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "Analytics",
-    url: "/app/analytics",
-    icon: BarChart3,
-  },
-  {
-    title: "Energy Monitor",
-    url: "/app/monitor",
+    title: "Grid Monitor",
+    url: "/operator/monitor",
     icon: Zap,
   },
   {
-    title: "Demand Forecast",
-    url: "/app/demand",
-    icon: TrendingUp,
+    title: "AI Decisions",
+    url: "/operator/decisions",
+    icon: Target,
   },
   {
-    title: "Renewable Sources",
-    url: "/app/renewable",
+    title: "Battery Control",
+    url: "/operator/battery",
     icon: Battery,
   },
   {
-    title: "AI Decisions",
-    url: "/app/decisions",
-    icon: Target,
+    title: "Alerts",
+    url: "/operator/alerts",
+    icon: AlertTriangle,
   },
 ];
 
-export default function AppLayout({
+export default function OperatorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <AppSidebar>{children}</AppSidebar>;
+  return <OperatorSidebar>{children}</OperatorSidebar>;
 }
 
-function AppSidebar({ children }: { children: React.ReactNode }) {
+function OperatorSidebar({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { setTheme } = useTheme();
 
@@ -104,7 +97,7 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
               <AppIcon className="w-10 h-10" />
               <div className="flex flex-col justify-center">
                 <span className="font-semibold text-sm">GridMind AI</span>
-                <span className="text-xs text-muted-foreground">{siteConfig.version}</span>
+                <span className="text-xs text-muted-foreground">Operator</span>
               </div>
             </div>
           </div>
@@ -112,31 +105,9 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
         
         <SidebarContent>
           <SidebarGroup>
+            <SidebarGroupLabel className="text-primary font-semibold mb-2">Operator Tools</SidebarGroupLabel>
             <SidebarMenu>
-              {appNavItems.map((item) => {
-                if (item.items) {
-                  return (
-                    <div key={item.title}>
-                      <SidebarGroupLabel className="text-primary font-semibold">{item.title}</SidebarGroupLabel>
-                      {item.items.map((subItem) => {
-                        const isActive = pathname === subItem.url;
-                        return (
-                          <SidebarMenuItem key={subItem.title}>
-                            <Link href={subItem.url} className={cn(
-                              "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                              isActive 
-                                ? "bg-sidebar-accent text-sidebar-accent-foreground" 
-                                : "hover:bg-sidebar-accent/50"
-                            )}>
-                              <subItem.icon className={isActive ? "text-primary" : ""} />
-                              <span>{subItem.title}</span>
-                            </Link>
-                          </SidebarMenuItem>
-                        );
-                      })}
-                    </div>
-                  );
-                }
+              {operatorNavItems.map((item) => {
                 const isActive = pathname === item.url;
                 return (
                   <SidebarMenuItem key={item.title}>
@@ -160,25 +131,25 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Link
-                href="/app/profile"
+                href="/operator/profile"
                 className={`flex-1 flex items-center gap-3 p-2 rounded-lg transition-colors border border-foreground/10 ${
-                  pathname === "/app/profile"
+                  pathname === "/operator/profile"
                     ? "bg-primary/50 dark:bg-primary/20 border-primary dark:border-primary"
                     : "bg-muted/50 hover:bg-muted"
                 }`}
               >
-                <div className="w-9 h-9 rounded-full bg-primary/50 dark:bg-primary/50 flex items-center justify-center font-semibold text-sm shrink-0">
-                  GA
+                <div className="w-9 h-9 rounded-full bg-blue-500 flex items-center justify-center font-semibold text-sm shrink-0">
+                  OP
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">Grid Admin</p>
-                  <p className="text-xs text-muted-foreground">Operator</p>
+                  <p className="text-sm font-medium truncate">Grid Operator</p>
+                  <p className="text-xs text-muted-foreground">Control Center</p>
                 </div>
               </Link>
               <Link
-                href="/app/settings"
+                href="/operator/settings"
                 className={`w-[50px] flex items-center justify-center rounded-lg transition-colors border border-foreground/10 ${
-                  pathname === "/app/settings"
+                  pathname === "/operator/settings"
                     ? "bg-primary/50 dark:bg-primary/20 border-primary dark:border-primary"
                     : "bg-muted/50 hover:bg-muted"
                 }`}
@@ -187,9 +158,9 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
               </Link>
             </div>
             <Button variant="outline" asChild className="w-full justify-start border border-foreground/10">
-              <Link href="/">
+              <Link href="/auth">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Go to Home
+                Switch Role
               </Link>
             </Button>
           </div>
@@ -201,23 +172,24 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex-1">
             <h1 className="text-lg font-semibold">
-              {appNavItems.find(item => item.url === pathname)?.title || 
-                appNavItems.find(item => item.items?.some(subItem => subItem.url === pathname))?.title ||
-                appNavItems.flatMap(item => item.items || []).find(subItem => subItem.url === pathname)?.title || 
-                "GridMind"}
+              {operatorNavItems.find(item => item.url === pathname)?.title || "Operator Dashboard"}
             </h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
-              {pathname === '/app/dashboard' && 'Real-time energy monitoring and AI decision intelligence'}
-              {pathname === '/app/analytics' && 'Analyze energy patterns and trends'}
-              {pathname === '/app/monitor' && 'Monitor energy sources and demand'}
-              {pathname === '/app/demand' && 'Forecast energy demand'}
-              {pathname === '/app/renewable' && 'Track renewable energy sources'}
-              {pathname === '/app/decisions' && 'View AI-driven decisions'}
-              {pathname === '/app/profile' && 'Manage your profile'}
-              {pathname === '/app/settings' && 'Configure system settings'}
+              {pathname === '/operator/dashboard' && 'Real-time grid operations and AI decision center'}
+              {pathname === '/operator/monitor' && 'Live grid monitoring and sensor data'}
+              {pathname === '/operator/decisions' && 'AI-driven operational decisions'}
+              {pathname === '/operator/battery' && 'Battery storage management'}
+              {pathname === '/operator/alerts' && 'System alerts and notifications'}
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => window.location.reload()}
+            >
+              <RefreshCw size={18} />
+            </Button>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -226,27 +198,27 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
-                  <SheetTitle>Notifications</SheetTitle>
+                  <SheetTitle>Operator Alerts</SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 mt-4">
-                    <div className="flex gap-3 p-3 rounded-lg border">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-primary" />
+                  <div className="flex gap-3 p-3 rounded-lg border border-red-200 dark:border-red-800">
+                    <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                      <AlertTriangle className="w-5 h-5 text-red-500" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">High Demand Alert</p>
-                      <p className="text-xs text-muted-foreground">Demand spike predicted at 6 PM</p>
-                      <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
+                      <p className="text-sm font-medium">Grid Warning</p>
+                      <p className="text-xs text-muted-foreground">Voltage fluctuation detected</p>
+                      <p className="text-xs text-muted-foreground mt-1">5 min ago</p>
                     </div>
                   </div>
                   <div className="flex gap-3 p-3 rounded-lg border">
                     <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                      <Battery className="w-5 h-5 text-green-500" />
+                      <Zap className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium">Battery Optimal</p>
-                      <p className="text-xs text-muted-foreground">Storage at 85% capacity</p>
-                      <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
+                      <p className="text-sm font-medium">System Normal</p>
+                      <p className="text-xs text-muted-foreground">All systems operating normally</p>
+                      <p className="text-xs text-muted-foreground mt-1">1 min ago</p>
                     </div>
                   </div>
                 </div>
