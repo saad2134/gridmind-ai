@@ -29,14 +29,10 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} min-h-full flex flex-col font-sans`}>
-        <Providers>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <FooterSection />
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <FooterSection />
+    </Providers>
   );
 }

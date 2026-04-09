@@ -207,6 +207,14 @@ function AppSidebar({ children }: { children: React.ReactNode }) {
                 appNavItems.flatMap(item => item.items || []).find(subItem => subItem.url === pathname)?.title || 
                 "GridMind"}
             </h1>
+            <p className="text-xs text-muted-foreground hidden sm:block">
+              {pathname === '/app/dashboard' && 'Real-time energy monitoring and AI decision intelligence'}
+              {pathname === '/app/analytics' && 'Analyze energy patterns and trends'}
+              {pathname === '/app/monitor' && 'Monitor energy sources and demand'}
+              {pathname === '/app/demand' && 'Forecast energy demand'}
+              {pathname === '/app/renewable' && 'Track renewable energy sources'}
+              {pathname === '/app/decisions' && 'View AI-driven decisions'}
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Sheet>
