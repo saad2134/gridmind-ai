@@ -57,7 +57,7 @@ export default function FooterSection({
       links: [
         { text: "API Reference", href: "#" },
         { text: "Support", href: "#" },
-        { text: "Status", href: "#" },
+        { text: "Status", href: "/status" },
       ],
     },
     {
